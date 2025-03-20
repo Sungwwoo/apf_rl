@@ -16,7 +16,8 @@ namespace potential_fields{
     public:
         GoalTFPublisher()
         : Node("goal_tf_publisher")
-        {
+        {   
+            this->set_parameter(rclcpp::Parameter("use_sim_time", true));
             // Initialize the transform broadcaster
             tf_broadcaster_ =
             std::make_unique<tf2_ros::TransformBroadcaster>(*this);

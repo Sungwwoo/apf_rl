@@ -21,6 +21,8 @@
 #include <geometry_msgs/msg/transform_stamped.hpp>
 #include <tf2_ros/transform_listener.h>
 #include <tf2_ros/buffer.h>
+#include <tf2_geometry_msgs/tf2_geometry_msgs.h>
+#include <tf2_sensor_msgs/tf2_sensor_msgs.h>
 #include <tf2/LinearMath/Quaternion.h>
 #include <tf2/LinearMath/Matrix3x3.h>
 #include <rclcpp_components/register_node_macro.hpp>
@@ -35,6 +37,7 @@ namespace potential_fields{
         RCLCPP_INFO(this->get_logger(), "Using namespace %s", this->get_namespace());
 
         RCLCPP_INFO(this->get_logger(), "Declaring parameters...");
+        this->set_parameter(rclcpp::Parameter("use_sim_time", true));
         std::map<std::string, bool> bool_params{
             {"check_potential", false}
         };
@@ -365,7 +368,7 @@ namespace potential_fields{
         }
     }
 
-    geometry_msgs::msg::Quaternion getQuaternion(double x1, double y1, double x2, double y2){
+    geometry_msgs::msg::Quaternion BasicAPF::getQuaternion(double x1, double y1, double x2, double y2){
         double dx = x2 - x1;
         double dy = y2 - y1;
 

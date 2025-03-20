@@ -1,6 +1,8 @@
 from launch_ros.substitutions import FindPackageShare
 
 from launch import LaunchDescription
+from launch.launch_description_sources import PythonLaunchDescriptionSource
+from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription
 from launch_ros.actions import ComposableNodeContainer, Node
 from launch_ros.descriptions import ComposableNode
 from launch.substitutions import PathJoinSubstitution
@@ -36,6 +38,14 @@ def generate_launch_description():
         output="screen",
     )
 
+    launch_fake_localization = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            PathJoinSubstitution(
+                [FindPackageShare("fake_localization"), "launch", "fake_localization.launch.py"]
+            )
+        )
+    )
     ld.add_action(basic_apf_action)
     ld.add_action(tf_publisher_action)
+    ld.add_action(launch_fake_localization)
     return ld

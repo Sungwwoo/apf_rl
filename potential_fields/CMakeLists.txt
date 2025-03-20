@@ -14,8 +14,10 @@ find_package(rclcpp REQUIRED)
 find_package(visualization_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
-find_package(tf2_ros REQUIRED)
 find_package(tf2 REQUIRED)
+find_package(tf2_ros REQUIRED)
+find_package(tf2_geometry_msgs REQUIRED)
+find_package(tf2_sensor_msgs REQUIRED)
 find_package(rclcpp_components REQUIRED)
 find_package(rosidl_default_generators REQUIRED)
 find_package(apf_interfaces REQUIRED)
@@ -24,7 +26,7 @@ add_library(basic_apf_component SHARED src/basic_apf.cpp)
 target_include_directories(basic_apf_component PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>)
-ament_target_dependencies(basic_apf_component rclcpp visualization_msgs geometry_msgs sensor_msgs tf2_ros tf2 rclcpp_components apf_interfaces)
+ament_target_dependencies(basic_apf_component rclcpp visualization_msgs geometry_msgs sensor_msgs tf2_ros tf2 tf2_geometry_msgs tf2_sensor_msgs rclcpp_components apf_interfaces)
 
 rclcpp_components_register_node(
   basic_apf_component
@@ -32,7 +34,7 @@ rclcpp_components_register_node(
   EXECUTABLE basic_apf
 )
 add_executable(goal_tf_publisher src/goal_tf_publisher.cpp)
-ament_target_dependencies(goal_tf_publisher rclcpp geometry_msgs tf2_ros)
+ament_target_dependencies(goal_tf_publisher rclcpp geometry_msgs tf2_ros tf2 tf2_geometry_msgs tf2_sensor_msgs)
 
 ament_export_targets(export_basic_apf_component)
 install(TARGETS basic_apf_component
