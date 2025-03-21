@@ -169,7 +169,7 @@ namespace potential_fields{
     void BasicAPF::getGoalPose(){
         try {
             geometry_msgs::msg::TransformStamped t;
-            t = tf_buffer_->lookupTransform("goal", "base_link", tf2::TimePointZero);
+            t = tf_buffer_->lookupTransform("base_link", "goal", tf2::TimePointZero);
             goal_x_ = t.transform.translation.x;
             goal_y_ = t.transform.translation.y;
             tf2::Quaternion q(
