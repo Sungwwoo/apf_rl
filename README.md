@@ -1,3 +1,5 @@
 # apf_rl
 
-Basic form of apf and reinforcement learning component
+Artifical Potential Field and reinforcement learning for ROS2
+
+Still working on RL part
